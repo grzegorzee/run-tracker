@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RunTracker — Strava Authorization</title>
+  <style>
+    body {
+      background: #0A0F0A;
+      color: #E8F0E8;
+      font-family: system-ui, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .container { text-align: center; padding: 2rem; }
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(0, 200, 83, 0.2);
+      border-top-color: #00C853;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="spinner"></div>
+    <p>Przekierowuję...</p>
+  </div>
+  <script>
+    // Bridge: Strava OAuth redirects here (plain URL), then we redirect to HashRouter route
+    // Pattern from strength_save (battle-tested)
+    const params = window.location.search;
+    const basePath = window.location.pathname.replace('/strava-callback.html', '');
+    window.location.replace(basePath + '/#/strava/callback' + params);
+  </script>
+</body>
+</html>
